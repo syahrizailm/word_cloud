@@ -340,7 +340,6 @@ class WordCloud(object):
         self.min_font_size = min_font_size
         self.font_step = font_step
         self.regexp = regexp
-        print(random_state)
         if isinstance(random_state, int):
             random_state = Random(random_state)
         self.random_state = random_state
@@ -505,12 +504,13 @@ class WordCloud(object):
                     break
                 # try to find a position
                 font = ImageFont.truetype(self.font_path, font_size)
+                print(font_size)
                 # transpose font optionally
                 transposed_font = ImageFont.TransposedFont(
                     font, orientation=orientation)
+                print(transposed_font.getbbox(word))
                 # get size of resulting text
                 box_size = draw.textbbox((0, 0), word, font=transposed_font, anchor="lt")
-                print(word, box_size[3] + self.margin, box_size[2] + self.margin)
                 # find possible places using integral image:
                 result = occupancy.sample_position(box_size[3] + self.margin,
                                                    box_size[2] + self.margin,
