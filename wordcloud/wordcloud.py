@@ -503,7 +503,7 @@ class WordCloud(object):
                     # font-size went too small
                     break
                 # try to find a position
-                font = ImageFont.truetype(self.font_path, font_size)
+                font = ImageFont.truetype(self.font_path, font_size, layout_engine=ImageFont.Layout.BASIC)
                 width, height = font.font.getsize(word)[0]
                 print(width, height)
                 # transpose font optionally
