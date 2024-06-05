@@ -513,6 +513,9 @@ class WordCloud(object):
                 result = occupancy.sample_position(box_size[3] + self.margin,
                                                    box_size[2] + self.margin,
                                                    random_state)
+
+                print(result)
+                
                 if result is not None:
                     # Found a place
                     break
