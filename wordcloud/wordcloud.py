@@ -504,11 +504,11 @@ class WordCloud(object):
                     break
                 # try to find a position
                 font = ImageFont.truetype(self.font_path, font_size)
-                print(font_size)
+                width, height = font.font.getsize(word)[0]
+                print(width, height)
                 # transpose font optionally
                 transposed_font = ImageFont.TransposedFont(
                     font, orientation=orientation)
-                print(transposed_font.getbbox(word))
                 # get size of resulting text
                 box_size = draw.textbbox((0, 0), word, font=transposed_font, anchor="lt")
                 # find possible places using integral image:
