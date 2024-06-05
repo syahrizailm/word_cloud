@@ -504,8 +504,6 @@ class WordCloud(object):
                     break
                 # try to find a position
                 font = ImageFont.truetype(self.font_path, font_size, layout_engine=ImageFont.Layout.BASIC)
-                width, height = font.font.getsize(word)[0]
-                print(width, height)
                 # transpose font optionally
                 transposed_font = ImageFont.TransposedFont(
                     font, orientation=orientation)
@@ -515,6 +513,8 @@ class WordCloud(object):
                 result = occupancy.sample_position(box_size[3] + self.margin,
                                                    box_size[2] + self.margin,
                                                    random_state)
+
+                print(result)
 
                 if result is not None:
                     # Found a place
