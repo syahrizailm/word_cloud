@@ -416,6 +416,8 @@ class WordCloud(object):
 
         frequencies = [(word, freq / max_frequency)
                        for word, freq in frequencies]
+        
+        print("self.random_state is", self.random_state)
 
         if self.random_state is not None:
             random_state = self.random_state
@@ -484,6 +486,8 @@ class WordCloud(object):
                 frequencies.extend([(word, freq * downweight ** (i + 1))
                                     for word, freq in frequencies_org])
 
+        print("freq is", frequencies)
+
         # start drawing grey image
         for word, freq in frequencies:
             if freq == 0:
@@ -508,14 +512,13 @@ class WordCloud(object):
                 transposed_font = ImageFont.TransposedFont(
                     font, orientation=orientation)
                 # get size of resulting text
+                print(word)
                 box_size = draw.textbbox((0, 0), word, font=transposed_font, anchor="lt")
                 # find possible places using integral image:
                 result = occupancy.sample_position(box_size[3] + self.margin,
                                                    box_size[2] + self.margin,
                                                    random_state)
 
-                print(result)
-                
                 if result is not None:
                     # Found a place
                     break
