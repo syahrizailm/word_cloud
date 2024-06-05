@@ -503,7 +503,7 @@ class WordCloud(object):
                     # font-size went too small
                     break
                 # try to find a position
-                font = ImageFont.truetype(self.font_path, font_size)
+                font = ImageFont.truetype(self.font_path, font_size, layout_engine=ImageFont.Layout.BASIC)
                 # transpose font optionally
                 transposed_font = ImageFont.TransposedFont(
                     font, orientation=orientation)
@@ -661,7 +661,8 @@ class WordCloud(object):
         draw = ImageDraw.Draw(img)
         for (word, count), font_size, position, orientation, color in self.layout_:
             font = ImageFont.truetype(self.font_path,
-                                      int(font_size * self.scale))
+                                      int(font_size * self.scale),
+                                      layout_engine=ImageFont.Layout.BASIC)
             transposed_font = ImageFont.TransposedFont(
                 font, orientation=orientation)
             pos = (int(position[1] * self.scale),
@@ -816,7 +817,7 @@ class WordCloud(object):
         result = []
 
         # Get font information
-        font = ImageFont.truetype(self.font_path, int(max_font_size * self.scale))
+        font = ImageFont.truetype(self.font_path, int(max_font_size * self.scale), layout_engine=ImageFont.Layout.BASIC)
         raw_font_family, raw_font_style = font.getname()
         # TODO properly escape/quote this name?
         font_family = repr(raw_font_family)
@@ -953,7 +954,7 @@ class WordCloud(object):
             y *= self.scale
 
             # Get text metrics
-            font = ImageFont.truetype(self.font_path, int(font_size * self.scale))
+            font = ImageFont.truetype(self.font_path, int(font_size * self.scale), layout_engine=ImageFont.Layout.BASIC)
             (size_x, size_y), (offset_x, offset_y) = font.font.getsize(word)
             ascent, descent = font.getmetrics()
 
