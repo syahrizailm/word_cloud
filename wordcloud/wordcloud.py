@@ -34,6 +34,9 @@ FILE = os.path.dirname(__file__)
 FONT_PATH = os.environ.get('FONT_PATH', os.path.join(FILE, 'DroidSansMono.ttf'))
 STOPWORDS = set(map(str.strip, open(os.path.join(FILE, 'stopwords')).readlines()))
 
+from PIL import features
+print(features.check('raqm'))
+
 
 class IntegralOccupancyMap(object):
     def __init__(self, height, width, mask):
@@ -514,8 +517,6 @@ class WordCloud(object):
                                                    box_size[2] + self.margin,
                                                    random_state)
 
-                print(result)
-
                 if result is not None:
                     # Found a place
                     break
@@ -664,7 +665,8 @@ class WordCloud(object):
         draw = ImageDraw.Draw(img)
         for (word, count), font_size, position, orientation, color in self.layout_:
             font = ImageFont.truetype(self.font_path,
-                                      int(font_size * self.scale))
+                                      int(font_size * self.scale),
+                                      layout_engine=ImageFont.Layout.BASIC)
             transposed_font = ImageFont.TransposedFont(
                 font, orientation=orientation)
             pos = (int(position[1] * self.scale),
@@ -819,7 +821,7 @@ class WordCloud(object):
         result = []
 
         # Get font information
-        font = ImageFont.truetype(self.font_path, int(max_font_size * self.scale))
+        font = ImageFont.truetype(self.font_path, int(max_font_size * self.scale), layout_engine=ImageFont.Layout.BASIC)
         raw_font_family, raw_font_style = font.getname()
         # TODO properly escape/quote this name?
         font_family = repr(raw_font_family)
@@ -956,7 +958,7 @@ class WordCloud(object):
             y *= self.scale
 
             # Get text metrics
-            font = ImageFont.truetype(self.font_path, int(font_size * self.scale))
+            font = ImageFont.truetype(self.font_path, int(font_size * self.scale), layout_engine=ImageFont.Layout.BASIC)
             (size_x, size_y), (offset_x, offset_y) = font.font.getsize(word)
             ascent, descent = font.getmetrics()
 
